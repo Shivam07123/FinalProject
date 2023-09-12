@@ -1,0 +1,175 @@
+
+<div class="container">
+
+  <!-- Menu  -->
+
+    <nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Product Details</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#addprdt" type="submit">Add Product</button>
+      </div>
+    </div>
+  </nav>
+
+  <!--  Table Data -->
+
+
+  <!-- <form class="d-flex justify-content-end">
+    <input class="form-control me-2" type="search" name="src" [(ngModel)]="src"
+     placeholder="Search Product Name" aria-label="Search">
+    <button type="button" class="btn btn-outline-primary" type="button" (click)="searchitem()">Search</button>
+  </form> -->
+
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <!-- <th scope="col">Select</th> -->
+        <th scope="col">Product ID</th>
+        <th scope="col">Product Name</th>
+        <th scope="col">Category</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Price</th>
+        <!-- <th scope="col">Reorder</th> -->
+        <th scope="col">Description</th>
+        <th scope="col">Image</th>
+        <th colspan="2">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+
+<ng-template [ngIf]="!src">
+      <tr *ngFor="let a of srcdata | paginate: { itemsPerPage: count, currentPage: p }">
+        <!-- <td> <form><input type="checkbox"  (change)="func(a)"/> </form> </td> -->
+
+        <td [ngStyle]="{'color':getcolor(a.prid)}">
+                  {{a.prid}}
+        </td>
+
+        <td>{{a.prnm}}</td>
+        <td>{{a.ct_catid}}</td>
+        <td>{{a.qty}}</td>
+        <td>{{a.price | currency : "EUR"}}</td>
+        <!-- <td>{{a.reorder}}</td> -->
+        <td>{{a.descrip}}</td>
+        <td><img src="data:image/*;base64,{{a.pic}}" height="50" width="50"></td>
+        <td> <button class="btn btn-sm btn-danger" (click)="deleteprdt(a)"> Delete </button> </td>
+      </tr>
+    </ng-template>
+
+
+    <ng-template [ngIf]="src">
+      <tr *ngFor="let a of srcdata | paginate: { itemsPerPage: count, currentPage: p }">
+        <td> <form><input type="checkbox"  (change)="func(a)"/> </form> </td>
+
+        <td [ngStyle]="{'color':getcolor(a.prid)}">
+                  {{a.prid}}
+        </td>
+
+        <td>{{a.prnm}}</td>
+        <td>{{a.ct_catid}}</td>
+        <td>{{a.qty}}</td>
+        <td>{{a.price}}</td>
+        <!-- <td>{{a.reorder}}</td> -->
+        <td>{{a.descrip}}</td>
+        <td><img src="data:image/*;base64,{{a.pic}}" height="50" width="50"></td>
+        <td> <button type="button" class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#editprdt" >Edit</button> </td>
+        <td> <button type="button" class="btn btn-outline-danger" (click)="deleteprdt(a)"> Delete </button> </td>
+      </tr>
+    </ng-template>
+
+
+    </tbody>
+  </table>
+
+
+
+  <!-- Pagination -->
+
+  <div class="d-flex justify-content-center">
+    <pagination-controls
+      (pageChange)="changePage($event)"></pagination-controls>
+  </div>
+
+
+
+  <!-- Add new product modal -->
+
+
+  <div class="modal fade" id="addprdt" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Product</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <form [formGroup] = "prdtObj">
+
+          <div class="mb-3">
+              <label class="form-label" for="prnm">Product Name</label>
+              <input type="text" formControlName="prnm" id="prnm" aria-describedby="emailHelp">
+           </div>
+
+        <div class="mb-3">
+            <label class="form-label" for="ct_catid">Category Name</label>
+            <select formControlName="ct_catid" id="ct_catid" aria-describedby="emailHelp">
+                  <option *ngFor="let a of allcategory" [value]="a.catid">{{a.catnm}}</option>
+            </select>
+         </div>
+
+
+         <div class="mb-3">
+          <label class="form-label" for="price">Price</label>
+          <input type="text" formControlName="price" id="price" aria-describedby="emailHelp">
+       </div>
+
+       <div class="mb-3">
+        <label class="form-label" for="descrip">Description</label>
+        <textarea row="5" col="20" formControlName="descrip" id="descrip" aria-describedby="emailHelp"></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="qty">Quantity</label>
+        <input type="text" formControlName="qty" id="qty" aria-describedby="emailHelp">
+     </div>
+
+    <div class="mb-3">
+      <label class="form-label" for="reorder">Reorder</label>
+      <input type="text" formControlName="reorder" id="reorder" aria-describedby="emailHelp">
+   </div>
+
+
+   <div class="mb-3">
+    <label class="form-label" for="pic">Upload Image</label>
+    <input type="file" formControlName="pic" id="pic"
+     accept="image/*"
+     (change)="ImageUpload($event)"
+     aria-describedby="emailHelp">
+  </div>
+
+  <div class="mb-3">
+
+      <div *ngIf="imageURL">
+        <img [src]="imageURL" width="50" height="50"/>
+      </div>
+
+  </div>
+
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" (click)="uploadData()" >Add</button>
+              </div>
+
+        </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>

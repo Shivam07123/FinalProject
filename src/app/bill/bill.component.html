@@ -1,0 +1,21 @@
+<div class="container-fluid d-flex justify-content-center align-items-center" style="height: 100vh;">
+  <div class="card" style="max-width: 400px; width: 100%;">
+    <div class="card-header">
+      <h1 class="text-center">Payment Details</h1>
+    </div>
+
+    <div class="card-body">
+      <h2 class="card-title">Order Details</h2>
+      <p class="card-text">Payment ID: {{ name }}</p>
+      <p class="card-text">Address: {{ Address }}</p>
+      <p class="card-text">Payment ID: {{ paymentInfo.razorpay_payment_id }}</p>
+      <p class="card-text">Currency: {{ paymentInfo.razorpay_order_id }}</p>
+      <p class="card-text">Amount: {{ total }}</p>
+
+      <div class="d-flex justify-content-center">
+        <button class="btn btn-primary" routerLink="/home">Order More</button>
+      </div>
+    </div>
+  </div>
+</div>
+

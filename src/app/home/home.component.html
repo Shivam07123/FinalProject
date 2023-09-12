@@ -1,0 +1,98 @@
+
+<div class="container-fluid p-0">
+  <div class="bg-image" style="background-image: url('https://media.istockphoto.com/id/1281297097/photo/shopping-cart-moving-out-from-mobile-phone.jpg?s=612x612&w=0&k=20&c=IWR-BQG9sZkBzn13qLC-JnJM5u-iBy1Ictnr0YXLi38=');">
+    <div class="overlay"></div>
+    <div class="content">
+    <strong>  <p style="font-size: 100px;" class="text-white ">Crazy Deals</p>
+      <p style="font-size: 40px;" class="text-white ">India Ka Smart Phone Destination</p></strong>
+
+    </div>
+  </div>
+</div>
+
+<!--
+<div class="container mb-5">
+<div id="search-container" class="container mb-5" style="margin: 20px;">
+  <input type="text" id="search-input" placeholder="Search..." [(ngModel)]="searchTerm">
+  <select id="filter-select" [(ngModel)]="selectedFilter">
+    <option value="all">All</option>
+    <option *ngFor="let category of prdtbycat" [value]="category.prnm">{{ category.prnm }}</option>
+  </select>
+  <button id="search-button" (click)="performSearch()">Search</button>
+</div>
+<div id="results-container">
+  <div *ngFor="let a of filteredPizzas">
+    <img src="data:image/*;base64,{{a.pic}}" height="150" width="150">
+    <h3>{{ a.prnm }}</h3>
+    <p>{{ a.descrip }}</p>
+    <p>Price: {{ a.price }}</p>
+    <button class="btn btn-primary" style="height:auto; width: 210px;" (click)="addToCart(a)">Add to Cart</button>
+  </div>
+  <div *ngIf="filteredPizzas.length === 0">No results found.</div>
+</div></div> -->
+
+<div class="container mb-5">
+  <div class="row">
+    <div class="col-md-12">
+      <div id="search-container" style="border: 3px;" class="container mb-2" style="margin: 20px;">
+        <div class="input-group">
+          <input type="text" class="form-control" id="search-input" placeholder="Search..." [(ngModel)]="searchTerm">
+          <select class="form-select" id="filter-select" [(ngModel)]="selectedFilter">
+            <option value="all">All</option>
+            <option *ngFor="let category of prdtbycat" [value]="category.prnm">{{ category.prnm }}</option>
+          </select>
+          <button class="btn btn-primary" id="search-button" (click)="performSearch()">Search</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div id="results-container">
+        <div *ngFor="let a of filteredPizzas" class="col-md-4">
+          <div class="card mb-4">
+            <img src="data:image/*;base64,{{a.pic}}" class="card-img-top" alt="{{ a.prnm }}">
+            <div class="card-body">
+              <h3 class="card-title">{{ a.prnm }}</h3>
+              <p class="card-text">{{ a.descrip }}</p>
+              <p class="card-text">Price: {{ a.price }}</p>
+              <button class="btn btn-primary btn-block" (click)="addToCart(a)">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="container " style="margin-top: 0px;">
+  <div class="row">
+    <div class="col-md-3" *ngFor="let a of prdtbycat | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
+      <div class="card mb-3 p-3" style="overflow: hidden;">
+        <div class="card-header text-center">
+          <strong>{{a.prnm}}</strong>
+        </div>
+        <div class="card-body d-flex justify-content-center align-self-center">
+          <img src="data:image/*;base64,{{a.pic}}" height="150" width="150">
+        </div>
+        <div class="" id="description">{{a.descrip}}</div>
+        <div class="d-flex justify-content-lg-evenly mt-auto">Price: ₹{{a.price}}</div>
+        <div class="d-flex justify-content-center">
+          <button class="btn btn-primary" style="height:auto; width: 210px;" (click)="addToCart(a)">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center">
+    <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+  </div>
+</div>
+
+
+
+
+<app-footer></app-footer>

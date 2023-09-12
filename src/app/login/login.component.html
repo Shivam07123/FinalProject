@@ -1,0 +1,146 @@
+
+  <div class="container-fluid p-0" style="position:relative; "><nav  class="navbar navbar-expand-lg navbar-primary bg-primary">
+    <h3 class="navbar-brand" style="margin-left: 5px; font-style: none; text-decoration: none;" class="ml-3 text-white" style="margin:10px;">Crazy Deals</h3>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" style="color: white;" routerLink="/home">Home </a>
+        </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link" routerLink="/home">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home">Services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home">Contact</a>
+        </li> -->
+
+      </ul >
+      </div>
+      <li style="list-style: none;">
+        <button type="button" class="btn btn-danger m-lg-2" (click)="openLoginModal()">
+          Login
+        </button>
+
+        <button type="button" class="btn btn-danger m-lg-2" (click)="openSignupModal()">
+          SignUp
+        </button>
+        <button type="button" class="btn btn-danger m-lg-2" routerLink="/cart">
+          Cart
+        </button>
+
+      </li>
+    </nav></div>
+
+
+  <!-- Login Modal -->
+  <div class="modal mb-3" id="loginModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Login Modal</h5>
+          <button type="button" id="loginbtn" class="close" class="btn  btn-outline-info" (click)="closeModal()">
+            <span  aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form class="form" [formGroup]="loginform">
+
+            <div class="mb-3">
+              <label  for="exampleInputEmail1" class="form-label  text-dark" >Email</label>
+              <input type="username" name="email" placeholder="Enter Your Email" [(ngModel)]="em" required formControlName="email"  class="form-control" id="exampleInputEmail" aria-describedby="emailHelp">
+              <span class="text-danger" *ngIf="loginform.controls['email'].invalid && loginform.controls['email'].touched">*Please Enter Valid Details</span>
+              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label text-dark">Password</label>
+              <input type="password" [(ngModel)]="password"  required placeholder="Enter Your Password" formControlName="password" class="form-control" id="exampleInputPassword1">
+              <span class="text-danger" *ngIf="loginform.controls['password'].invalid && loginform.controls['password'].touched">*Please Enter Valid Details</span>
+
+            </div>
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input text-dark" id="exampleCheck">
+              <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div>
+            <button type="submit" (click)="checkuser()"  class="btn btn-primary text-white m-3">Submit</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <!-- forgot-password.component.html -->
+<!-- <form (submit)="sendResetEmail()">
+  <label for="email">Email:</label>
+  <input type="email" id="email" [(ngModel)]="em" required>
+  <button type="submit">Reset Password</button>
+</form> -->
+  <a routerLink="/forgot">Forgot Password</a>
+          <!-- <button (click)="sendEmail()">SendMail</button> -->
+          <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="closeModal()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+  <!-- Signup Modal -->
+  <div class="modal" id="signupModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Signup Modal</h5>
+          <button type="button" id="loginbtn" class="close" class="btn  btn-outline-info" (click)="closeModal()">
+            <span  aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+
+        <div class="modal-body">
+          <form [formGroup]="userloginform"  >
+            <div class="mb-3">
+              <label for="fullname"  class="form-label">Name:</label>
+              <input type="text" name="name" [(ngModel)]="name" required formControlName="name" placeholder="Please Enter Your Name" class="form-control" id="fullname"  aria-describedby="emailHelp">
+              <span class="text-danger" *ngIf="userloginform.controls['name'].invalid && userloginform.controls['name'].touched">*Please Enter Valid Details</span>
+            </div>
+
+            <div class="mb-3 text-white">
+              <label for="exampleInputEmail1"  class="form-label text-dark">Email address:</label>
+              <input type="email" name="email1" [(ngModel)]="email1" required placeholder="Please Enter Your Email" formControlName="email1" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <span class="text-danger" *ngIf="userloginform.controls['email1'].invalid && userloginform.controls['email1'].touched">*Please Enter Valid Details</span>
+              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3 text-white">
+              <label for="Mobile" class="form-label text-dark">Mobile Number:</label>
+              <input type="number" name="phone" [(ngModel)]="phone" required placeholder="Please Enter Your Mobile Number" formControlName="phone" class="form-control" id="Mobile" aria-describedby="emailHelp">
+              <span class="text-danger" *ngIf="userloginform.controls['phone'].invalid && userloginform.controls['phone'].touched">*Please Enter Valid Details</span>
+
+            </div>
+            <div class="mb-3">
+              <label for="Password1" class="form-label text-dark">Password:</label>
+              <input type="password" name="pwd" [(ngModel)]="pwd" required class="form-control" formControlName="pwd" placeholder="Please Enter Your Password" id="Password1" >
+              <span class="text-danger" *ngIf="userloginform.controls['pwd'].invalid && userloginform.controls['pwd'].touched">*Please Enter Valid Details</span>
+
+            </div>
+            <div class="mb-3 form-check text-dark">
+              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+              <label class="form-check-label text-" for="exampleCheck1">Remember Password</label>
+            </div>
+            <button  type="submit" (click)="adduser()" class="btn btn-primary text-white m-3" id="bat">Sign Up</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="closeModal()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+

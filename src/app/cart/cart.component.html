@@ -1,0 +1,57 @@
+<div class="container">
+  <h2 class="text-">Your Cart</h2>
+  <ng-container *ngIf="cartItems.length > 0; else emptyCart">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th>Image</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of cartItems; let i = index">
+         <strong>
+           <td>{{ item.prnm }}</td></strong>
+          <td>{{ item.descrip }}</td>
+          <td>₹{{ item.price.toFixed(2) }}</td>
+          <td><img src="data:image/*;base64,{{item.pic}}" height="100" width="100"></td>
+          <td><button class="btn btn-danger" (click)="removeFromCart(i)">Remove</button></td>
+
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="2" class="text-right">Total:</td>
+         <strong> <td class="text-center">₹{{ getTotalPrice() }}</td></strong>
+          <td> </td>
+
+
+        </tr>
+      </tfoot>
+    </table>
+    <button class="btn btn-danger" (click)="clearCart()">Clear Cart</button>
+    <button class="btn btn-primary m-3" (click)="ordernow()">Order Now</button>
+  </ng-container>
+
+  <ng-template #emptyCart>
+    <div class="container ml-5 d-flex justify-content-center">
+      <div class="card pl-5">
+        <div class="row">
+          <div class="col-12 text-center">
+            <img src="https://rukminim2.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90" style="height:150px; width:auto; margin: 0 auto; display: block;">
+
+            <h4 class="card-header m-3 p-5">Your Cart Is Empty</h4>
+          </div>
+          <div class="col-12 text-center p-5">
+            <button class="btn btn-primary text-white btn-outline-secondary" routerLink="/home">Order Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+</div>
+

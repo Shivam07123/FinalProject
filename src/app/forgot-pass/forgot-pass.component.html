@@ -1,0 +1,12 @@
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <form class="form">
+    <div class="mb-3 text-center">
+     <strong> <label for="em" class="form-label">Email Address</label></strong>
+      <input type="email" class="form-control text-center" [(ngModel)]="em" name="em" id="em" style="width: 500px;" placeholder="Enter Your Email Here...!">
+    </div>
+    <div class="text-center">
+      <button class="btn btn-primary" (click)="sendEmail()">Send Link</button>
+    </div>
+  </form>
+</div>
+
